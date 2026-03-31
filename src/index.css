@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'DM Sans', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+
+  --color-brand-dark: #2F5D50;
+  --color-brand-teal: #4F7F73;
+  --color-bg-cream: #F5F3EF;
+  --color-bg-beige: #EAE4DD;
+  --color-bg-lightgreen: #E6F0EC;
+  --color-text-dark: #2B2B2B;
+  --color-text-grey: #6B6B6B;
+  --color-accent-green: #A8C1B8;
+  --color-divider: #DCDCDC;
+}
+
+/* Base resets */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-cream);
+  color: var(--color-text-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--color-text-dark);
+}
+
+p, span, li, a {
+  font-family: var(--font-serif);
+}
+
+/* Ensure buttons use DM Sans for punchiness */
+button {
+  font-family: var(--font-sans) !important;
+}
+
+/* Use DM sans for tags/metadata */
+.font-sans, .tag {
+  font-family: var(--font-sans) !important;
+}
+
+/* Hide Scrollbar helper */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Scrollbar styled for clinical look */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-bg-beige);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-brand-teal);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-dark);
+}
