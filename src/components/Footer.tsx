@@ -1,12 +1,14 @@
 import logo from '../assets/logo.png';
+import { contactInfo } from '../data';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-brand-dark text-white pt-20 pb-10 px-6 sm:px-12 flex flex-col border-t border-white/10 relative overflow-hidden">
+    <footer className="w-full bg-brand-dark text-white pt-20 pb-10 px-6 sm:px-12 flex flex-col border-t border-white/10 relative overflow-hidden" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" className="sr-only">Footer</h2>
       {/* Decorative Background Element */}
-      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-brand-teal/5 rounded-bl-[200px] pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-brand-teal/5 rounded-bl-[200px] pointer-events-none" aria-hidden="true"></div>
 
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 relative z-10">
 
@@ -40,50 +42,47 @@ export default function Footer() {
           {/* Main Clinic Info */}
           <div className="flex flex-col gap-6">
             <h4 className="font-sans text-xs uppercase tracking-[0.2em] font-bold text-brand-teal">
-              Nexus Clinic Kuala Lumpur
+              {contactInfo.kl.name}
             </h4>
             <div className="flex flex-col gap-4">
               <address className="not-italic font-serif text-lg text-bg-cream/80 leading-relaxed">
-                LG 10, Lower Ground Floor, Wisma UOA II,<br />
-                Jalan Pinang, 50450 Kuala Lumpur, Malaysia.
+                {contactInfo.kl.address}
               </address>
               <div className="flex flex-col gap-1">
-                <p className="font-serif text-base text-bg-cream/60">Mobile: 016-7025699 / 03-21635699</p>
-                <p className="font-sans text-sm font-bold text-white uppercase tracking-wider">Main Line: +016-774 5699</p>
+                <p className="font-serif text-base text-bg-cream/60">Mobile: {contactInfo.kl.mobile}</p>
+                <p className="font-sans text-sm font-bold text-white uppercase tracking-wider">Main Line: {contactInfo.kl.mainLine}</p>
               </div>
             </div>
 
             <div className="mt-2">
               <span className="font-sans text-[10px] uppercase tracking-[0.2em] font-bold text-brand-teal block mb-2">Opening Hours</span>
-              <p className="font-serif text-base text-bg-cream/80">Monday – Saturday: 9.00am to 6.00pm</p>
-              <p className="font-serif text-sm text-bg-cream/40 italic">Sundays & Public Holidays: Close</p>
+              <p className="font-serif text-base text-bg-cream/80">{contactInfo.kl.hours}</p>
+              <p className="font-serif text-sm text-bg-cream/40 italic">{contactInfo.kl.closed}</p>
             </div>
           </div>
 
           {/* Secondary Clinic Info */}
           <div className="flex flex-col gap-6">
             <h4 className="font-sans text-xs uppercase tracking-[0.2em] font-bold text-brand-teal">
-              KLCC Wellness Clinic Kuala Lumpur
+              {contactInfo.klcc.name}
             </h4>
             <div className="flex flex-col gap-4">
               <address className="not-italic font-serif text-lg text-bg-cream/80 leading-relaxed">
-                LG 9, Lower Ground Floor, Wisma UOA 2,<br />
-                Jalan Pinang, Kuala Lumpur, 50450,<br />
-                Wilayah Persekutuan Kuala Lumpur, Malaysia.
+                {contactInfo.klcc.address}
               </address>
               <div className="flex items-center gap-2 text-brand-teal">
-                <div className="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></div>
-                <span className="font-sans text-xs font-bold uppercase tracking-widest">Available via Mobile</span>
+                <div className="w-2 h-2 rounded-full bg-brand-teal animate-pulse" aria-hidden="true"></div>
+                <span className="font-sans text-xs font-bold uppercase tracking-widest">{contactInfo.klcc.status}</span>
               </div>
             </div>
 
             {/* Quick Links Overlay */}
             <div className="mt-auto pt-8 border-t border-white/5 flex flex-wrap gap-4">
-              {['Instagram', 'Facebook', 'WhatsApp'].map((platform) => (
+              {contactInfo.socials.map((platform) => (
                 <a
                   key={platform}
                   href="#"
-                  className="font-sans text-[10px] uppercase tracking-[0.2em] font-bold text-bg-cream/30 hover:text-white transition-colors"
+                  className="font-sans text-[10px] uppercase tracking-[0.2em] font-bold text-bg-cream/30 hover:text-white transition-colors no-underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-sm px-1"
                 >
                   {platform}
                 </a>
@@ -107,3 +106,4 @@ export default function Footer() {
     </footer>
   );
 }
+

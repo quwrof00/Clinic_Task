@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
+import { navLinks } from '../data';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,19 +10,13 @@ export default function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: "Treatments", hasDropdown: true },
-    { label: "Our Doctors", hasDropdown: false },
-    { label: "Why Nexus", hasDropdown: false },
-    { label: "Journal", hasDropdown: false },
-  ];
-
   return (
     <nav 
+      aria-label="Main Navigation"
       className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 px-6 sm:px-12 lg:px-20 py-6 flex items-center justify-between ${
         isScrolled 
           ? "bg-bg-cream/90 backdrop-blur-md border-b border-divider py-4" 
@@ -29,46 +24,50 @@ export default function Navbar() {
       }`}
     >
       {/* Brand Logo - Top Left */}
-      <a href="#hero" className="flex items-center group cursor-pointer lg:pr-12 outline-none">
+      <a href="#hero" className="flex items-center group cursor-pointer lg:pr-12 outline-none" aria-label="Nexus Clinic Home">
         <img 
           src={logo} 
-          alt="Nexus Clinic" 
+          alt="Nexus Clinic Logo" 
           className="h-10 md:h-14 w-auto object-contain transition-all duration-300 group-hover:scale-[1.03] grayscale brightness-0 opacity-100" 
         />
       </a>
 
       {/* Main Navigation: Centered with massive gaps for premium look */}
-      <div className="hidden xl:flex items-center gap-14 text-brand-dark">
+      <ul className="hidden xl:flex items-center gap-14 text-brand-dark list-none p-0 m-0">
         {navLinks.map((link) => (
-          <div key={link.label} className="group relative py-2">
-            <div className="flex items-center gap-2 cursor-pointer transition-all duration-300 hover:text-brand-teal">
+          <li key={link.label} className="group relative py-2">
+            <a 
+              href={link.href}
+              className="flex items-center gap-2 cursor-pointer transition-all duration-300 hover:text-brand-teal no-underline outline-none focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2 rounded-sm"
+              aria-haspopup={link.hasDropdown ? "true" : undefined}
+            >
               <span className="font-sans text-[11px] font-extrabold uppercase tracking-[0.2em]">
                 {link.label}
               </span>
               {link.hasDropdown && (
-                <svg className="w-3 h-3 opacity-50 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 opacity-50 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
                 </svg>
               )}
-            </div>
+            </a>
             {/* Minimalist Hover Underline Indicator */}
             <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand-teal transition-all duration-300 group-hover:w-full"></div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
 
       {/* Action Buttons with padding for balance */}
       <div className="flex items-center gap-10">
         <div className="hidden lg:flex items-center gap-6">
-          <button className="font-sans text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-dark hover:text-brand-teal transition-colors pr-6 border-r border-divider">
+          <button className="font-sans text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-dark hover:text-brand-teal transition-colors pr-6 border-r border-divider outline-none hover:translate-y-[-1px] active:translate-y-[0px]">
             Shop
           </button>
-          <button className="font-sans text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-dark hover:text-brand-teal transition-colors">
+          <button className="font-sans text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-dark hover:text-brand-teal transition-colors outline-none hover:translate-y-[-1px] active:translate-y-[0px]">
             KLCC / Bangsar
           </button>
         </div>
 
-        <button className={`px-8 py-3.5 rounded-full font-sans font-extrabold uppercase tracking-[0.15em] text-[11px] transition-all duration-500 shadow-sm active:scale-95 ${
+        <button className={`px-8 py-3.5 rounded-full font-sans font-extrabold uppercase tracking-[0.15em] text-[11px] transition-all duration-500 shadow-sm active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-brand-dark ${
           isScrolled 
             ? "bg-brand-dark text-white hover:bg-brand-teal" 
             : "bg-white text-brand-dark hover:bg-brand-dark hover:text-white border border-divider"
@@ -78,8 +77,11 @@ export default function Navbar() {
 
         {/* Minimalist Multi-line Hamburger for Mobile */}
         <button 
-          className="xl:hidden flex flex-col gap-1.5 p-2 group"
+          className="xl:hidden flex flex-col gap-1.5 p-2 group outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-controls="mobile-menu"
         >
           <div className={`w-6 h-0.5 bg-brand-dark rounded-full transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}></div>
           <div className={`w-4 h-0.5 bg-brand-dark rounded-full transition-all duration-300 ${isMenuOpen ? "opacity-0" : ""}`}></div>
@@ -89,21 +91,27 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay with elegant fade */}
       <div 
+        id="mobile-menu"
         className={`absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl transition-all duration-500 border-t border-divider pointer-events-auto ${
-          isMenuOpen ? "max-h-screen opacity-100 py-16 visible" : "max-h-0 opacity-0 py-0 invisible"
+          isMenuOpen ? "max-h-screen opacity-100 py-16 visible shadow-2xl" : "max-h-0 opacity-0 py-0 invisible"
         }`}
       >
         <div className="flex flex-col items-center gap-10 text-brand-dark">
           {navLinks.map((link) => (
-            <a key={link.label} href="#" className="font-sans text-lg font-extrabold uppercase tracking-[0.3em] hover:text-brand-teal transition-colors">
+            <a 
+              key={link.label} 
+              href={link.href} 
+              onClick={() => setIsMenuOpen(false)}
+              className="font-sans text-lg font-extrabold uppercase tracking-[0.3em] hover:text-brand-teal transition-colors no-underline"
+            >
               {link.label}
             </a>
           ))}
           <div className="w-12 h-[1px] bg-divider my-4"></div>
-          <button className="font-sans text-sm font-extrabold uppercase tracking-[0.2em] text-brand-dark">
+          <button className="font-sans text-sm font-extrabold uppercase tracking-[0.2em] text-brand-dark hover:text-brand-teal transition-colors">
             Shop Products
           </button>
-          <button className="px-12 py-5 bg-brand-dark text-white rounded-full font-sans font-extrabold uppercase tracking-[0.2em] text-xs">
+          <button className="px-12 py-5 bg-brand-dark text-white rounded-full font-sans font-extrabold uppercase tracking-[0.2em] text-xs hover:bg-brand-teal transition-colors">
             Book Now
           </button>
         </div>
@@ -111,3 +119,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

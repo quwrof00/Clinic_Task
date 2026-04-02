@@ -1,73 +1,27 @@
-# React + TypeScript + Vite
+# Nexus Clinic - Modern Medical Aesthetics Design
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a high-end, editorial-style redesign for **Nexus Clinic**, focusing on a premium medical aesthetic that balances trust, clinical excellence, and modern UX.
 
-Currently, two official plugins are available:
+## 🎨 Design Philosophy & Process
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Research & Analysis
+The redesign began by auditing the current site and identifying areas for improvement, specifically focusing on visual clutter and information hierarchy. 
+- **Competitive Benchmarking**: Researched world-class medical institutions like **Cleveland Clinic** and **Apollo Hospitals** to understand how they communicate authority and patient care.
+- **Color Palette**: Maintained the established brand palette (deep medical greens and soft creams) while introducing more sophisticated shades to enhance the "luxury clinical" feel.
+- **Typography**: Paired **Cormorant Garamond** (for an elegant, editorial feel in headings) with **DM Sans** (for clear, readable, and trusting body text).
 
-## React Compiler
+### 2. UX & Layout Decisions
+- **Mobile-First Responsiveness**: Transitioned the site from a rigid desktop-focused layout to a natural vertical flow on mobile, removing internal container scrollbars while strictly maintaining the **one-screen (100dvh)** height constraint for desktop viewports.
+- **Content Optimization**: Many sections had excessive text which could overwhelm patients. I either shortened copy for impact or grouped detailed information into **interactive accordions and toggles**.
+- **Visual Smoothness**: Implemented rounded corners and glassmorphism effects to provide a "soft-clinical" experience that feels modern and satisfactory.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Technical Optimizations
+- **Dual-Mode Layout**: Used a hybrid CSS strategy to allow a fixed-screen "presentation" mode on large screens and a standard "long-scroll" mode on mobile.
+- **Integrated Media**: On mobile, medical imagery is integrated directly into the background of treatment cards to reduce the page length and improve atmospheric immersion.
+- **Build Performance**: Verified with a clean TypeScript build and optimized Vite production output.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Built With
+- **Framework**: React 19 + TypeScript
+- **Bundler**: Vite
+- **Styling**: Tailwind CSS
+- **Design Inspiration**: Editorial Design & Medical Authority
